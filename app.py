@@ -16,16 +16,24 @@ preprocessor = pickle.load(open("artifacts/preprocessor.pkl", "rb"))
 # -----------------------------
 # OPTIONS API (NEW)
 # -----------------------------
+import os
+
 @app.route("/options")
 def get_options():
-    df = pd.read_csv("notebook/cleaned_data.csv")
+    try:
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(BASE_DIR, "notebook", "cleaned_data.csv")
 
-    return jsonify({
-        "TYPE": sorted(df["TYPE"].dropna().unique().tolist()),
-        "STATE": sorted(df["STATE"].dropna().unique().tolist()),
-        "SUBLOCALITY": sorted(df["SUBLOCALITY"].dropna().unique().tolist())
-    })
+        df = pd.read_csv(file_path)
 
+        return jsonify({
+            "TYPE": sorted(df["TYPE"].dropna().unique().tolist()),
+            "STATE": sorted(df["STATE"].dropna().unique().tolist()),
+            "SUBLOCALITY": sorted(df["SUBLOCALITY"].dropna().unique().tolist())
+        })
+
+    except Exception as e:
+        return {"error": str(e)}
 
 # -----------------------------
 # FEATURE ENGINEERING (IMPORTANT)
