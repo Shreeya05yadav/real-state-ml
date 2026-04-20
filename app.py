@@ -18,6 +18,10 @@ preprocessor = pickle.load(open("artifacts/preprocessor.pkl", "rb"))
 # -----------------------------
 import os
 
+@app.route("/")
+def home():
+    return "API is running"
+
 @app.route("/options")
 def get_options():
     try:
