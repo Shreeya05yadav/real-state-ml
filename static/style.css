@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f5f7fa;
+}
+
+/* Navbar */
+.navbar {
+    background: #1e2a38;
+    color: white;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Hero */
+.hero {
+    background: url("/static/image.jpeg") center/cover;
+    color: white;
+    padding: 60px;
+    text-align: center;
+}
+
+/* Card */
+.card {
+    background: white;
+    width: 500px;
+    margin: -50px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+input, select {
+    flex: 1;
+    padding: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #0077ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    background: #e6f7ff;
+    border-radius: 10px;
+}

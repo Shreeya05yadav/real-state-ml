@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Property Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="navbar">
+    <h2>🏡 PropertyAI</h2>
+    <div>Buy | Sell | Predict</div>
+</header>
+
+<div class="hero">
+    <h1>Find Your Property Value Instantly</h1>
+    <p>AI-powered real estate valuation system</p>
+</div>
+
+<div class="card">
+
+<form action="/predict" method="POST">
+
+    <h3>Property Details</h3>
+
+    <div class="row">
+        <select name="TYPE" required>
+            <option value="">Property Type</option>
+            <option>Condo</option>
+            <option>House</option>
+            <option>Townhouse</option>
+            <option>Co-op</option>
+        </select>
+
+        <select name="STATE" required>
+            <option value="">City</option>
+            <option>New York</option>
+            <option>Brooklyn</option>
+            <option>Queens</option>
+            <option>Bronx</option>
+        </select>
+    </div>
+
+    <div class="row">
+        <select name="SUBLOCALITY" required>
+            <option value="">Neighborhood</option>
+            <option>Queens</option>
+            <option>Brooklyn</option>
+            <option>Manhattan</option>
+        </select>
+    </div>
+
+    <h3>Specifications</h3>
+
+    <div class="row">
+        <input type="number" name="BEDS" placeholder="Bedrooms" required>
+        <input type="number" name="BATH" placeholder="Bathrooms" required>
+    </div>
+
+    <div class="row">
+        <input type="number" name="LATITUDE" placeholder="Latitude" required>
+        <input type="number" name="LONGITUDE" placeholder="Longitude" required>
+    </div>
+
+    <button type="submit">Predict Price</button>
+
+</form>
+
+{% if prediction_text %}
+<div class="result">
+    {{ prediction_text | safe }}
+</div>
+{% endif %}
+
+</div>
+
+</body>
+</html>

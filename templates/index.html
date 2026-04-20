@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>House Price Predictor</title>
+
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+    <h2>🏠 House Price Prediction</h2>
+
+    <form id="form">
+
+        <input type="number" id="BEDS" placeholder="Number of Bedrooms" required>
+
+        <input type="number" id="BATH" placeholder="Number of Bathrooms" required>
+
+        <input type="number" id="PROPERTYSQFT" placeholder="Property Area (sqft)" required>
+
+        <input type="text" id="LATITUDE" placeholder="Latitude" required>
+
+        <input type="text" id="LONGITUDE" placeholder="Longitude" required>
+
+        <input type="text" id="BROKERTITLE" placeholder="Broker Title" required>
+
+        <input type="text" id="TYPE" placeholder="Property Type (e.g. Condo)" required>
+
+        <input type="text" id="STATE" placeholder="State (e.g. NY)" required>
+
+        <input type="text" id="ADMINISTRATIVE_AREA_LEVEL_2" placeholder="Area Level" required>
+
+        <input type="text" id="LOCALITY" placeholder="Locality" required>
+
+        <input type="text" id="SUBLOCALITY" placeholder="Sublocality" required>
+
+        <button type="button" onclick="predict()">Predict Price</button>
+
+    </form>
+
+    <h3 id="result"></h3>
+</div>
+
+<script>
+function predict() {
+    let data = {
+        BEDS: document.getElementById("BEDS").value,
+        BATH: document.getElementById("BATH").value,
+        PROPERTYSQFT: document.getElementById("PROPERTYSQFT").value,
+        LATITUDE: document.getElementById("LATITUDE").value,
+        LONGITUDE: document.getElementById("LONGITUDE").value,
+        BROKERTITLE: document.getElementById("BROKERTITLE").value,
+        TYPE: document.getElementById("TYPE").value,
+        STATE: document.getElementById("STATE").value,
+        ADMINISTRATIVE_AREA_LEVEL_2: document.getElementById("ADMINISTRATIVE_AREA_LEVEL_2").value,
+        LOCALITY: document.getElementById("LOCALITY").value,
+        SUBLOCALITY: document.getElementById("SUBLOCALITY").value
+    };
+
+    fetch("/predict", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if(result["Predicted Price"]) {
+            document.getElementById("result").innerText =
+                "💰 Predicted Price: $" + result["Predicted Price"];
+        } else {
+            document.getElementById("result").innerText =
+                "⚠️ Error: " + result["error"];
+        }
+    });
+}
+</script>
+
+</body>
+</html>
